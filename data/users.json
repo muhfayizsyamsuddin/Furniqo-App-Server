@@ -4,7 +4,7 @@
     "username": "abdul",
     "email": "abdul@gmail.com",
     "password": "abdul123",
-    "role": "Staff",
+    "role": "admin",
     "phoneNumber": "081234567890",
     "address": "Jl. Garuda"
   },
