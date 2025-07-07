@@ -24,4 +24,50 @@ module.exports = class ProductController {
       console.log("error:", err);
     }
   }
+
+  static async detailProductsById(req, res) {
+    const productId = req.params.id;
+    try {
+      const products = await Product.findByPk(productId);
+      res.status(200).json(products);
+    } catch (err) {
+      console.log("error:", err);
+    }
+  }
+
+  static async updateProductsById(req, res) {
+    const productId = req.params.id;
+    try {
+      const product = await Product.findByPk(productId);
+      console.log(product, "<---");
+
+      if (!product) {
+        res.status(404).json({ message: `Product ${productId} not found` });
+        return;
+      }
+      await product.update(req.body);
+      //   await Product.update({ where: { id: productId } });
+      res.status(200).json({ message: `Product updated seccesfully` });
+    } catch (err) {
+      console.log("error:", err);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+
+  static async deleteProductsById(req, res) {
+    const productId = req.params.id;
+    try {
+      const products = await Product.findByPk(productId);
+
+      if (!products) {
+        res.status(404).json({ message: `Product not found` });
+        return;
+      }
+      await Product.destroy({ where: { id: productId } });
+      res.status(200).json({ message: `Product deleted seccesfully` });
+    } catch (err) {
+      console.log("error:", err);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
 };

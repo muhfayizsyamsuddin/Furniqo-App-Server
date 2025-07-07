@@ -11,6 +11,9 @@ app.use(express.json());
 
 app.post("/products", ProductController.createProducts);
 app.get("/products", ProductController.getProducts);
+app.get("/products/:id", ProductController.detailProductsById);
+app.put("/products/:id", ProductController.updateProductsById);
+app.delete("/products/:id", ProductController.deleteProductsById);
 
 app.listen(port, () => {
   console.log(`Server can be access in http://localhost:${port}`);
