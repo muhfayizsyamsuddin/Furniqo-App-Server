@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "username": "abdul",
+    "email": "abdul@gmail.com",
+    "password": "abdul123",
+    "role": "Staff",
+    "phoneNumber": "081234567890",
+    "address": "Jl. Garuda"
+  },
+  {
+    "id": 2,
+    "username": "budiono",
+    "email": "budiono@gmail.com",
+    "password": "budiono123",
+    "role": "Staff",
+    "phoneNumber": "082345678901",
+    "address": "Jl. Kesenangan"
+  },
+  {
+    "id": 3,
+    "username": "susanti",
+    "email": "susanti@gmail.com",
+    "password": "susanti123",
+    "role": "Staff",
+    "phoneNumber": "085678901234",
+    "address": "Jl. Perintis"
+  }
+]

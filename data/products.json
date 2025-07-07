@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Office desk",
+    "description": "ideal for home or work office workspace",
+    "price": 400000,
+    "stock": 15,
+    "imageUrl": "https://th.bing.com/th/id/OIP.iouwcdSKKxwoWMefAR4jCQHaHa?w=187&h=187&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
+    "categoryId": 2,
+    "userId": 3
+  },
+  {
+    "id": 2,
+    "name": "Office chair",
+    "description": "premium office chair",
+    "price": 300000,
+    "stock": 8,
+    "imageUrl": "https://th.bing.com/th/id/OIP.2prPAlXV7t8vZT96ilv3iAHaIp?w=163&h=191&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
+    "categoryId": 3,
+    "userId": 2
+  },
+  {
+    "id": 3,
+    "name": "Bookshelf Rack",
+    "description": "minimalist bookshelf to organize your space",
+    "price": 150000,
+    "stock": 23,
+    "imageUrl": "https://th.bing.com/th/id/OIP.rFt4aRsyZ6hPNwq-x6at2wHaFj?w=281&h=211&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "categoryId": 1,
+    "userId": 1
+  }
+]
