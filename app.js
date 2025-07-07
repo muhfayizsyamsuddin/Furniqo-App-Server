@@ -10,6 +10,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.post("/products", ProductController.createProducts);
+app.get("/products", ProductController.getProducts);
 
 app.listen(port, () => {
   console.log(`Server can be access in http://localhost:${port}`);

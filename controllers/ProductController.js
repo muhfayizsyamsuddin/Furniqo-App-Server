@@ -15,4 +15,13 @@ module.exports = class ProductController {
       }
     }
   }
+
+  static async getProducts(req, res) {
+    try {
+      const products = await Product.findAll();
+      res.json(products);
+    } catch (err) {
+      console.log("error:", err);
+    }
+  }
 };
