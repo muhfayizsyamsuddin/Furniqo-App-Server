@@ -15,6 +15,13 @@ app.get("/products/:id", ProductController.detailProductsById);
 app.put("/products/:id", ProductController.updateProductsById);
 app.delete("/products/:id", ProductController.deleteProductsById);
 
+app.post("/categories", CategoryController.postCategories);
+app.get("/categories", CategoryController.getCategories);
+app.put("/categories/:id", CategoryController.updateCategoriesById);
+
+app.get("/pub/products", ProductController.publicGetProducts);
+app.get("/pub/products/:id", ProductController.pubDetailProductsById);
+
 app.listen(port, () => {
   console.log(`Server can be access in http://localhost:${port}`);
 });
