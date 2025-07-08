@@ -1,5 +1,5 @@
 require("dotenv").config();
-console.log(process.env);
+// console.log(process.env);
 
 const express = require("express");
 const app = express();
@@ -9,6 +9,9 @@ const UserController = require("./controllers/UserController");
 const ProductController = require("./controllers/ProductController");
 const CategoryController = require("./controllers/CategoryController");
 const PublicController = require("./controllers/PublicController");
+const { verifyToken } = require("./helpers/jwt");
+const { User } = require("./models/index");
+const authentication = require("./middleware/authentication");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -16,6 +19,17 @@ app.use(express.json());
 // users
 app.post("/add-user", UserController.createUsers);
 app.post("/login", UserController.login);
+
+app.use(authentication);
+
+// {
+//   'user-agent': 'PostmanRuntime/7.44.1',
+//   accept: '*/*',
+//   'postman-token': 'fcfaa05a-9f04-4c50-814b-1fdb8ac1c4e1',
+//   host: 'localhost:3000',
+//   'accept-encoding': 'gzip, deflate, br',
+//   connection: 'keep-alive'
+// }
 
 app.post("/products", ProductController.createProducts);
 app.get("/products", ProductController.getProducts);
