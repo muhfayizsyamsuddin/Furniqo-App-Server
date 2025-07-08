@@ -8,6 +8,7 @@ const port = 3000;
 const UserController = require("./controllers/UserController");
 const ProductController = require("./controllers/ProductController");
 const CategoryController = require("./controllers/CategoryController");
+const PublicController = require("./controllers/PublicController");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -26,8 +27,8 @@ app.post("/categories", CategoryController.postCategories);
 app.get("/categories", CategoryController.getCategories);
 app.put("/categories/:id", CategoryController.updateCategoriesById);
 
-app.get("/pub/products", ProductController.publicGetProducts);
-app.get("/pub/products/:id", ProductController.pubDetailProductsById);
+app.get("/pub/products", PublicController.publicGetProducts);
+app.get("/pub/products/:id", PublicController.pubDetailProductsById);
 
 app.listen(port, () => {
   console.log(`Server can be access in http://localhost:${port}`);
