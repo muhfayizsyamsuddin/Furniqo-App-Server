@@ -1,3 +1,6 @@
+require("dotenv").config();
+console.log(process.env);
+
 const express = require("express");
 const app = express();
 const port = 3000;
@@ -8,6 +11,10 @@ const CategoryController = require("./controllers/CategoryController");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+// users
+app.post("/add-user", UserController.createUsers);
+app.post("/login", UserController.login);
 
 app.post("/products", ProductController.createProducts);
 app.get("/products", ProductController.getProducts);
@@ -21,8 +28,6 @@ app.put("/categories/:id", CategoryController.updateCategoriesById);
 
 app.get("/pub/products", ProductController.publicGetProducts);
 app.get("/pub/products/:id", ProductController.pubDetailProductsById);
-
-app.post("/add-user", UserController.createUsers);
 
 app.listen(port, () => {
   console.log(`Server can be access in http://localhost:${port}`);
