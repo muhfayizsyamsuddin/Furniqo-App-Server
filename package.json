@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/H8-FSJS-P2S5/gc01-muhfayizsyamsuddin#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "express": "^5.1.0",
     "pg": "^8.16.3",
     "sequelize": "^6.37.7"

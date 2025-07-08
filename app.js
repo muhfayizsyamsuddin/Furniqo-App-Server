@@ -22,6 +22,8 @@ app.put("/categories/:id", CategoryController.updateCategoriesById);
 app.get("/pub/products", ProductController.publicGetProducts);
 app.get("/pub/products/:id", ProductController.pubDetailProductsById);
 
+app.post("/add-user", UserController.createUsers);
+
 app.listen(port, () => {
   console.log(`Server can be access in http://localhost:${port}`);
 });
