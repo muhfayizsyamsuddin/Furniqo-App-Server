@@ -32,8 +32,8 @@ module.exports = async function authentication(req, res, next) {
     next();
   } catch (err) {
     next(err);
-    if (err.name === "JsonWebTokenError") {
-      res.status(401).json({ message: "Invalid token" });
-    }
+    // if (err.name === "JsonWebTokenError") {
+    //   res.status(401).json({ message: "Invalid token" });
+    // }
   }
 };

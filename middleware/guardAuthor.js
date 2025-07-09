@@ -4,6 +4,8 @@ module.exports = async function guardAuthor(req, res, next) {
   console.log(req.user.role, "<=== guard author");
 
   const productId = req.params.id;
+  // console.log(productId, "===");
+  console.log(req.params.id, "~~~~!!!");
   try {
     const product = await Product.findByPk(productId);
     if (!product) {
@@ -11,7 +13,10 @@ module.exports = async function guardAuthor(req, res, next) {
     }
     if (req.user.role === "admin") {
       next();
-    } else if (req.user.role === "Staff" && req.user.id === product.authorId) {
+    } else if (
+      (req.user.role === "Staff" || req.user.role === "staff") &&
+      req.user.id === product.authorId
+    ) {
       next();
     } else {
       throw { name: "Forbidden", message: "Forbidden Access" };

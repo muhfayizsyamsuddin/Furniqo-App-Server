@@ -1,4 +1,13 @@
 const { Product, User } = require("../models/index");
+// import { v2 as cloudinary } from "cloudinary";
+const { v2: cloudinary } = require("cloudinary");
+
+// Configuration
+cloudinary.config({
+  cloud_name: "dmtfulhtw",
+  api_key: "567286987943313",
+  api_secret: "l_KVcBfRr-gifNXNaJRPtjpelA8", // Click 'View API Keys' above to copy your API secret
+});
 
 module.exports = class ProductController {
   static async createProducts(req, res, next) {
@@ -108,27 +117,34 @@ module.exports = class ProductController {
     }
   }
 
-  // static async publicGetProducts(req, res) {
-  //   try {
-  //     const products = await Product.findAll();
-  //     res.status(200).json(products);
-  //   } catch (err) {
-  //     console.log("error:", err);
-  //     res.status(500).json({ message: "Internal Server Error" });
-  //   }
-  // }
+  static async updateProductCoverUrlById(req, res) {
+    // req.file=
+    // {
+    //   fieldname: 'imageUrl',
+    //   originalname: 'my com.jpg',
+    //   encoding: '7bit',
+    //   mimetype: 'image/jpeg',
+    //   buffer: <Buffer ff d8 ff e0 00 10 4a 46 49 46 00 01 01 01 00 48 00 48 00 00 ff db 00 43 00 06 04 05 06 05 04 06 06 05 06 07 07 06 08 0a 10 0a 0a 09 09 0a 14 0e 0f 0c ... 30803 more bytes>,
+    //   size: 30853
+    // }
+    console.log(req.file, "<==== rf");
+    const mimetype = req.file.mimetype;
+    const base64File = req.file.buffer.toString("base64");
+    // Upload an image
+    const uploadResult = await cloudinary.uploader
+      .upload(`data:${mimetype};base64,${base64File}`, {
+        public_id: req.file.originalname,
+        folder: "p2-ikea",
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    console.log({ base64File });
 
-  // static async pubDetailProductsById(req, res) {
-  //   const productId = req.params.id;
-  //   try {
-  //     const products = await Product.findByPk(productId);
-  //     if (!products) {
-  //       res.status(404).json({ message: `error not found` });
-  //       return;
-  //     }
-  //     res.status(200).json(products);
-  //   } catch (err) {
-  //     console.log("error:", err);
-  //   }
-  // }
+    try {
+      res.json({ message: "Cover url has been updated" });
+    } catch (err) {
+      next(err);
+    }
+  }
 };

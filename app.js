@@ -45,6 +45,18 @@ app.put("/categories/:id", CategoryController.updateCategoriesById);
 
 app.get("/pub/products", PublicController.publicGetProducts);
 app.get("/pub/products/:id", PublicController.pubDetailProductsById);
+//! multer
+//* 1. import dan config
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+app.patch(
+  "/products/:id/cover-url",
+  guardAuthor,
+  upload.single("imageUrl"),
+  ProductController.updateProductCoverUrlById
+);
+
 //* only admin
 app.post("/add-user", guardAdmin, UserController.createUsers);
 //* error handler

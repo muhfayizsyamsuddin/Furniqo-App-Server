@@ -10,29 +10,40 @@
 
 List of available endpoints:
 
-- `POST /register`
+- `POST /add-user`
 - `POST /login`
 
 Routes below need authentication:
 
 - `GET /products`
 - `POST /products`
+- `GET /products/:id`
+- `PUT /products/:id`
+- `DELETE /products/:id`
+- `POST /categories`
+- `GET /categories`
+- `PUT /categories/:id`
+- `GET /pub/products`
+- `GET /pub/products/:id`
+- `PATCH /products/:id/cover-url`
+- `POST /add-user`
 
 Routes below need authorization:
 
 > The request user should be an admin
 
-- `DELETE /products/:id`
 - `PUT /products/:id`
-- `PATCH /products/:id/show-status`
+- `DELETE /products/:id`
+- `PATCH /products/:id/cover-url`
+- `PATCH /add-user`
 
 &nbsp;
 
-## 1. POST /register
+## 1. POST /add-user
 
 Description:
 
-- Register a new user into the system
+- Add a new user by admin into the system
 
 Request:
 
@@ -93,6 +104,7 @@ _Response (200 - OK)_
 
 ```json
 {
+  "message": "Login Success",
   "access_token": "string"
 }
 ```
@@ -101,7 +113,16 @@ _Response (400 - Bad Request)_
 
 ```json
 {
-  "message": "Invalid email or password"
+  "message": "Email is required",
+  "message": "Password is required"
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Email or password required"
 }
 ```
 
