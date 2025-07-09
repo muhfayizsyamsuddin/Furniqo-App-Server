@@ -1,6 +1,7 @@
-const { User } = require("./models/index");
-const { verifyToken } = require("./helpers/jwt");
+const { User } = require("../models/index");
+const { verifyToken } = require("../helpers/jwt");
 
+//! authentication = untuk identify user/verifikasi(dia itu siapa?)
 // middleware
 module.exports = async function authentication(req, res, next) {
   console.log("helo", req.headers);
@@ -27,7 +28,7 @@ module.exports = async function authentication(req, res, next) {
     }
     //! Attach user
     req.user = user;
-
+    //! continue: call next() to proceed
     next();
   } catch (err) {
     console.log(err, "<----");

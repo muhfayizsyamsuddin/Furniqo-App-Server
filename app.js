@@ -12,6 +12,7 @@ const PublicController = require("./controllers/PublicController");
 const { verifyToken } = require("./helpers/jwt");
 const { User } = require("./models/index");
 const authentication = require("./middleware/authentication");
+const guardAdmin = require("./middleware/guardAdmin");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -30,12 +31,12 @@ app.use(authentication);
 //   'accept-encoding': 'gzip, deflate, br',
 //   connection: 'keep-alive'
 // }
-
+// app.use(guardAdmin);
 app.post("/products", ProductController.createProducts);
 app.get("/products", ProductController.getProducts);
 app.get("/products/:id", ProductController.detailProductsById);
-app.put("/products/:id", ProductController.updateProductsById);
-app.delete("/products/:id", ProductController.deleteProductsById);
+app.put("/products/:id", guardAdmin, ProductController.updateProductsById);
+app.delete("/products/:id", guardAdmin, ProductController.deleteProductsById);
 
 app.post("/categories", CategoryController.postCategories);
 app.get("/categories", CategoryController.getCategories);
