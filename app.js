@@ -18,7 +18,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // users
-app.post("/add-user", UserController.createUsers);
 app.post("/login", UserController.login);
 
 app.use(authentication);
@@ -44,6 +43,8 @@ app.put("/categories/:id", CategoryController.updateCategoriesById);
 
 app.get("/pub/products", PublicController.publicGetProducts);
 app.get("/pub/products/:id", PublicController.pubDetailProductsById);
+//* only admin
+app.post("/add-user", guardAdmin, UserController.createUsers);
 
 app.listen(port, () => {
   console.log(`Server can be access in http://localhost:${port}`);
