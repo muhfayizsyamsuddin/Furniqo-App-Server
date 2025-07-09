@@ -10,6 +10,42 @@ cloudinary.config({
 });
 
 module.exports = class ProductController {
+  static async updateProductCoverUrlById(req, res) {
+    // req.file=
+    // {
+    //   fieldname: 'imageUrl',
+    //   originalname: 'my com.jpg',
+    //   encoding: '7bit',
+    //   mimetype: 'image/jpeg',
+    //   buffer: <Buffer ff d8 ff e0 00 10 4a 46 49 46 00 01 01 01 00 48 00 48 00 00 ff db 00 43 00 06 04 05 06 05 04 06 06 05 06 07 07 06 08 0a 10 0a 0a 09 09 0a 14 0e 0f 0c ... 30803 more bytes>,
+    //   size: 30853
+    // }
+    console.log(req.file, "<==== rf");
+    const mimetype = req.file.mimetype;
+    const base64File = req.file.buffer.toString("base64");
+    try {
+      const productId = req.params.id;
+      const product = await Product.findByPk(productId);
+      if (!product) {
+        throw { name: "NotFound", message: "Product not found" };
+      }
+      // Upload an image
+      const uploadResult = await cloudinary.uploader.upload(
+        `data:${mimetype};base64,${base64File}`,
+        {
+          public_id: req.file.originalname,
+          folder: "p2-ikea",
+        }
+      );
+
+      await product.update({ imageUrl: uploadResult.secure_url });
+
+      res.json({ message: "Cover url has been updated" });
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async createProducts(req, res, next) {
     try {
       // console.log(req.body);
@@ -112,37 +148,6 @@ module.exports = class ProductController {
       res
         .status(200)
         .json({ message: `Product id: ${productId} deleted seccesfully` });
-    } catch (err) {
-      next(err);
-    }
-  }
-
-  static async updateProductCoverUrlById(req, res) {
-    // req.file=
-    // {
-    //   fieldname: 'imageUrl',
-    //   originalname: 'my com.jpg',
-    //   encoding: '7bit',
-    //   mimetype: 'image/jpeg',
-    //   buffer: <Buffer ff d8 ff e0 00 10 4a 46 49 46 00 01 01 01 00 48 00 48 00 00 ff db 00 43 00 06 04 05 06 05 04 06 06 05 06 07 07 06 08 0a 10 0a 0a 09 09 0a 14 0e 0f 0c ... 30803 more bytes>,
-    //   size: 30853
-    // }
-    console.log(req.file, "<==== rf");
-    const mimetype = req.file.mimetype;
-    const base64File = req.file.buffer.toString("base64");
-    // Upload an image
-    const uploadResult = await cloudinary.uploader
-      .upload(`data:${mimetype};base64,${base64File}`, {
-        public_id: req.file.originalname,
-        folder: "p2-ikea",
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    console.log({ base64File });
-
-    try {
-      res.json({ message: "Cover url has been updated" });
     } catch (err) {
       next(err);
     }
