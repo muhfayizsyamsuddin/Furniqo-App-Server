@@ -8,7 +8,7 @@ module.exports = async function authentication(req, res, next) {
   //! Extract token: Get Bearer token from authorization header
   const bearerToken = req.headers.authorization;
   if (!bearerToken) {
-    res.status(401).json({ message: "Invalid token" });
+    next({ name: "Unauthorized", message: "Invalid token" });
     return;
   }
   const access_token = bearerToken.split(" ")[1];
@@ -23,19 +23,17 @@ module.exports = async function authentication(req, res, next) {
     // console.log(user, "===");
 
     if (!user) {
-      res.status(401).json({ message: "Invalid token" });
-      return;
+      // res.status(401).json({ message: "Invalid token" });
+      throw { name: "Unauthorized", message: "Invalid token" };
     }
     //! Attach user
     req.user = user;
     //! continue: call next() to proceed
     next();
   } catch (err) {
-    console.log(err, "<----");
+    next(err);
     if (err.name === "JsonWebTokenError") {
       res.status(401).json({ message: "Invalid token" });
-    } else {
-      res.status(500).json({ message: "Internal server error" });
     }
   }
 };

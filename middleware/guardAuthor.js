@@ -14,7 +14,7 @@ module.exports = async function guardAuthor(req, res, next) {
     } else if (req.user.role === "Staff" && req.user.id === product.authorId) {
       next();
     } else {
-      res.status(403).json({ message: "Forbidden Access" });
+      throw { name: "Forbidden", message: "Forbidden Access" };
     }
   } catch (err) {
     next(err);
