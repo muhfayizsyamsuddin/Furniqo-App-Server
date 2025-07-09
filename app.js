@@ -13,6 +13,8 @@ const { verifyToken } = require("./helpers/jwt");
 const { User } = require("./models/index");
 const authentication = require("./middleware/authentication");
 const guardAdmin = require("./middleware/guardAdmin");
+const errorHandler = require("./middleware/errorHandler");
+const guardAuthor = require("./middleware/guardAuthor");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -34,8 +36,8 @@ app.use(authentication);
 app.post("/products", ProductController.createProducts);
 app.get("/products", ProductController.getProducts);
 app.get("/products/:id", ProductController.detailProductsById);
-app.put("/products/:id", guardAdmin, ProductController.updateProductsById);
-app.delete("/products/:id", guardAdmin, ProductController.deleteProductsById);
+app.put("/products/:id", guardAuthor, ProductController.updateProductsById);
+app.delete("/products/:id", guardAuthor, ProductController.deleteProductsById);
 
 app.post("/categories", CategoryController.postCategories);
 app.get("/categories", CategoryController.getCategories);
@@ -45,6 +47,8 @@ app.get("/pub/products", PublicController.publicGetProducts);
 app.get("/pub/products/:id", PublicController.pubDetailProductsById);
 //* only admin
 app.post("/add-user", guardAdmin, UserController.createUsers);
+//* error handler
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server can be access in http://localhost:${port}`);
