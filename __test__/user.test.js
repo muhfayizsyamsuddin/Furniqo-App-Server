@@ -67,14 +67,10 @@ describe("Login (Admin), perlu melakukan pengecekan pada status dan response ket
     const userLogin = {
       password: "abdul123",
     };
-    // .post -> method nya
-    // .send -> attach body
     const response = await request(app)
       .post("/login")
       .send(userLogin)
       .set("Authorization", `Bearer ${access_token_admin}`);
-    //   console.log(response, "<== ro");
-    //   console.log(response.status, response.body, "<== rsrb");
 
     expect(response.status).toBe(400);
     expect(response.body).toHaveProperty("message", "Email is required");
@@ -84,15 +80,10 @@ describe("Login (Admin), perlu melakukan pengecekan pada status dan response ket
     const userLogin = {
       email: "abdul@gmail.com",
     };
-    // .post -> method nya
-    // .send -> attach body
     const response = await request(app)
       .post("/login")
       .send(userLogin)
       .set("Authorization", `Bearer ${access_token_admin}`);
-    //   console.log(response, "<== ro");
-    //   console.log(response.status, response.body, "<== rsrb");
-
     expect(response.status).toBe(400);
     expect(response.body).toHaveProperty("message", "Password is required");
   });
@@ -102,14 +93,10 @@ describe("Login (Admin), perlu melakukan pengecekan pada status dan response ket
       email: "invalid@gmail.com",
       password: "abdul123",
     };
-    // .post -> method nya
-    // .send -> attach body
     const response = await request(app)
       .post("/login")
       .send(userLogin)
       .set("Authorization", `Bearer ${access_token_admin}`);
-    //   console.log(response, "<== ro");
-    //   console.log(response.status, response.body, "<== rsrb");
 
     expect(response.status).toBe(401);
     expect(response.body).toHaveProperty(
@@ -123,14 +110,10 @@ describe("Login (Admin), perlu melakukan pengecekan pada status dan response ket
       email: "abdul@gmail.com",
       password: "passwordSalah",
     };
-    // .post -> method nya
-    // .send -> attach body
     const response = await request(app)
       .post("/login")
       .send(userLogin)
       .set("Authorization", `Bearer ${access_token_admin}`);
-    //   console.log(response, "<== ro");
-    //   console.log(response.status, response.body, "<== rsrb");
 
     expect(response.status).toBe(401);
     expect(response.body).toHaveProperty("message", "Password is required");
