@@ -394,28 +394,28 @@ describe("Delete, perlu melakukan pengecekan pada status dan response", () => {
     expect(response.body).toHaveProperty("message", "Product not found");
   });
 
-  //   test("Gagal menjalankan fitur ketika Staff menghapus entity yang bukan miliknya", async () => {
-  //     const productDelete = {
-  //       name: "Curtain",
-  //       description: "smooth and soft",
-  //       price: 170000,
-  //       stock: 17,
-  //       imageUrl:
-  //         "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/174/0817490_PE774044_S5.webp",
-  //       categoryId: 1,
-  //       authorId: 2,
-  //     };
-  //     // .post -> method nya
-  //     // .send -> attach body
-  //     const productId = 1;
-  //     const response = await request(app)
-  //       .delete(`/products/${productId}`)
-  //       .send(productDelete)
-  //       .set("Authorization", `Bearer ${access_token_staff}`);
+  test("Gagal menjalankan fitur ketika Staff menghapus entity yang bukan miliknya", async () => {
+    const productDelete = {
+      name: "Curtain",
+      description: "smooth and soft",
+      price: 170000,
+      stock: 17,
+      imageUrl:
+        "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/174/0817490_PE774044_S5.webp",
+      categoryId: 1,
+      authorId: 2,
+    };
+    // .post -> method nya
+    // .send -> attach body
+    const productId = 3;
+    const response = await request(app)
+      .delete(`/products/${productId}`)
+      .send(productDelete)
+      .set("Authorization", `Bearer ${access_token_staff}`);
 
-  //     // berekspektasi
-  //     expect(response.status).toBe(403);
+    // berekspektasi
+    expect(response.status).toBe(403);
 
-  //     expect(response.body).toHaveProperty("message", "Forbidden Access");
-  //   });
+    expect(response.body).toHaveProperty("message", "Forbidden Access");
+  });
 });
