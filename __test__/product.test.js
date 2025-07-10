@@ -56,22 +56,22 @@ afterAll(async () => {
 
   await queryInterface.bulkDelete("Users", null, {
     restartIdentity: true,
-    truncates: true,
+    truncate: true,
   });
 
   await queryInterface.bulkDelete("Categories", null, {
     restartIdentity: true,
-    truncates: true,
+    truncate: true,
   });
 
   await queryInterface.bulkDelete("Products", null, {
     restartIdentity: true,
-    truncates: true,
+    truncate: true,
   });
 });
 
-describe.only("Create, perlu melakukan pengecekan pada status dan response", () => {
-  test.only("Berhasil membuat entitas utama", async () => {
+describe("Create, perlu melakukan pengecekan pada status dan response", () => {
+  test("Berhasil membuat entitas utama", async () => {
     const productCreate = {
       name: "lamp",
       description: "minimalist",
@@ -79,8 +79,8 @@ describe.only("Create, perlu melakukan pengecekan pada status dan response", () 
       stock: 10,
       imageUrl:
         "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/888/1388807_PE964980_S5.webp",
-      categoryId: 2,
-      authorId: 2,
+      categoryId: 1,
+      authorId: 1,
     };
     const response = await request(app)
       .post("/products")

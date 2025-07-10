@@ -21,6 +21,8 @@ app.use(express.json());
 
 // users
 app.post("/login", UserController.login);
+app.get("/pub/products", PublicController.publicGetProducts);
+app.get("/pub/products/:id", PublicController.pubDetailProductsById);
 // authen
 app.use(authentication);
 
@@ -43,8 +45,6 @@ app.post("/categories", CategoryController.postCategories);
 app.get("/categories", CategoryController.getCategories);
 app.put("/categories/:id", CategoryController.updateCategoriesById);
 
-app.get("/pub/products", PublicController.publicGetProducts);
-app.get("/pub/products/:id", PublicController.pubDetailProductsById);
 //! multer
 //* 1. import dan config
 const multer = require("multer");

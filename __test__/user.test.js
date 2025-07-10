@@ -10,7 +10,6 @@ const app = require("../app");
 const { signToken } = require("../helpers/jwt");
 const { hashPassword } = require("../helpers/bcrypt");
 const { sequelize } = require("../models");
-const { truncates } = require("bcryptjs");
 const { queryInterface } = sequelize;
 
 //* Protected endpoint testing
@@ -39,7 +38,8 @@ afterAll(async () => {
   console.log("afterAll => clean up");
   await queryInterface.bulkDelete("Users", null, {
     restartIdentity: true,
-    truncates: true,
+    truncate: true,
+    cascade: true,
   });
 });
 
