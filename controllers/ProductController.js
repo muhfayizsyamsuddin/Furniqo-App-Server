@@ -8,9 +8,14 @@ cloudinary.config({
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET,
 });
+// cloudinary.config({
+//   cloud_name: "dmtfulhtw",
+//   api_key: "567286987943313",
+//   api_secret: "l_KVcBfRr-gifNXNaJRPtjpelA8",
+// });
 
 module.exports = class ProductController {
-  static async updateProductCoverUrlById(req, res) {
+  static async updateProductCoverUrlById(req, res, next) {
     // req.file=
     // {
     //   fieldname: 'imageUrl',
@@ -34,7 +39,7 @@ module.exports = class ProductController {
         `data:${mimetype};base64,${base64File}`,
         {
           public_id: req.file.originalname,
-          folder: "p2-ikea",
+          folder: "p3-ikea",
         }
       );
 
