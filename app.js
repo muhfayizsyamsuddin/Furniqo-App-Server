@@ -62,6 +62,8 @@ app.post("/add-user", guardAdmin, UserController.createUsers);
 //* error handler
 app.use(errorHandler);
 
-app.listen(port, () => {
-  console.log(`Server can be access in http://localhost:${port}`);
-});
+module.exports = app;
+
+//* sequelize db:create --env test
+//* sequelize db:migrate --env test
+//* sequelize db:seed:all --env test

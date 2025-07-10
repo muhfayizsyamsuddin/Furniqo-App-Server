@@ -4,9 +4,9 @@ const { v2: cloudinary } = require("cloudinary");
 
 // Configuration
 cloudinary.config({
-  cloud_name: "dmtfulhtw",
-  api_key: "567286987943313",
-  api_secret: "l_KVcBfRr-gifNXNaJRPtjpelA8", // Click 'View API Keys' above to copy your API secret
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
 });
 
 module.exports = class ProductController {
