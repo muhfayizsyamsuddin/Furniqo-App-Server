@@ -124,12 +124,13 @@ module.exports = class ProductController {
         // return;
         throw { name: "NotFound", message: "Product not found" };
       }
-      await product.update(req.body);
+      await product.update(req.body, { validate: true });
       //   await Product.update({ where: { id: productId } });
       res
         .status(200)
         .json({ message: `Product id: ${productId} updated seccesfully` });
     } catch (err) {
+      console.log(err);
       next(err);
       // if (err.name === "SequelizeValidationError") {
       //   res.status(400).json({ message: err.errors[0].message });
