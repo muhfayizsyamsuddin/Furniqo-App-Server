@@ -124,7 +124,10 @@ module.exports = class ProductController {
         // return;
         throw { name: "NotFound", message: "Product not found" };
       }
-      await product.update(req.body, { validate: true });
+      if (!req.body.name) {
+        throw { name: "BadRequest", message: "Name is required" };
+      }
+      await product.update(req.body);
       //   await Product.update({ where: { id: productId } });
       res
         .status(200)

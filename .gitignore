@@ -1,2 +1,6 @@
 .env
 node_modules
+
+ikea-key.pem
+
+note.md

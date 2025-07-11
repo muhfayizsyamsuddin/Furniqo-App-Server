@@ -1,4 +1,18 @@
-require("dotenv").config();
+// NODE_ENV adalah environment nya nodejs
+// environment list
+// 1. DEVELOPMENT -> kalian coding di localhost
+
+// kita pake env langsung dari system / pm2
+// 2. STAGING -> persiapan sebelum production || proses testing dan pencarian bug & error
+// 3. PRODUCTION -> versi distribution
+console.log({ env: process.env.NODE_ENV });
+if (process.env.NODE_ENV !== "production") {
+  // hanya dipake ketika proses development
+  // kalo production kita tidak menggunakan library dotenv -> env bawaan dari pm2 (runner)
+  require("dotenv").config();
+}
+
+// require("dotenv").config();
 // console.log(process.env);
 
 const express = require("express");
@@ -23,6 +37,7 @@ app.use(express.json());
 app.post("/login", UserController.login);
 app.get("/pub/products", PublicController.publicGetProducts);
 app.get("/pub/products/:id", PublicController.pubDetailProductsById);
+app.get("/pub/categories", PublicController.pubDetailCategoriesById);
 // authen
 app.use(authentication);
 

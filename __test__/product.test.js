@@ -217,8 +217,9 @@ describe("Update PUT, perlu melakukan pengecekan pada status dan response", () =
     };
     // .post -> method nya
     // .send -> attach body
+    const productId = 1;
     const response = await request(app)
-      .post("/products/:id")
+      .put(`/products/${productId}`)
       .send(productUpdate);
 
     // berekspektasi
@@ -240,8 +241,9 @@ describe("Update PUT, perlu melakukan pengecekan pada status dan response", () =
     };
     // .post -> method nya
     // .send -> attach body
+    const productId = 1;
     const response = await request(app)
-      .post("/products/:id")
+      .put(`/products/${productId}`)
       .send(productUpdate)
       .set("Authorization", `Bearer ${access_token_admin}+invalid`);
 
@@ -407,7 +409,7 @@ describe("Delete, perlu melakukan pengecekan pada status dan response", () => {
     };
     // .post -> method nya
     // .send -> attach body
-    const productId = 3;
+    const productId = 5;
     const response = await request(app)
       .delete(`/products/${productId}`)
       .send(productDelete)
