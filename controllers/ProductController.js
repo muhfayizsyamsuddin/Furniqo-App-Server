@@ -2,7 +2,7 @@ const { Product, User } = require("../models/index");
 // import { v2 as cloudinary } from "cloudinary";
 const { v2: cloudinary } = require("cloudinary");
 
-// Configuration
+// Configuration;
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,

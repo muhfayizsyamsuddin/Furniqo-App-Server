@@ -81,7 +81,7 @@ describe("Create, perlu melakukan pengecekan pada status dan response", () => {
     const productCreate = {
       name: "lamp",
       description: "minimalist",
-      price: 40000,
+      price: 50000,
       stock: 10,
       imageUrl:
         "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/888/1388807_PE964980_S5.webp",
