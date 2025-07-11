@@ -51,8 +51,11 @@ Request:
 
 ```json
 {
+  "username": "string",
   "email": "string",
-  "password": "string"
+  "password": "string",
+  "phoneNumber": "string",
+  "address": "string"
 }
 ```
 
@@ -61,7 +64,10 @@ _Response (201 - Created)_
 ```json
 {
   "id": "number",
-  "email": "string"
+  "username": "string",
+  "email": "string",
+  "phoneNumber": "string",
+  "address": "string"
 }
 ```
 
@@ -144,8 +150,6 @@ Description:
 
 Request:
 
-- headers:
-
 - body:
 
 ```json
@@ -203,14 +207,6 @@ Description:
 
 Request:
 
-- headers:
-
-```json
-{
-  "Authorization": "Bearer <access_token>"
-}
-```
-
 _Response (200 - OK)_
 
 ```json
@@ -253,14 +249,6 @@ Description:
 - Get details product from the database by id
 
 Request:
-
-- headers:
-
-```json
-{
-  "Authorization": "Bearer <access_token>"
-}
-```
 
 _Response (400 - Bad Request)_
 
@@ -625,11 +613,15 @@ Description:
 
 Request:
 
-- headers:
+- query:
 
 ```json
 {
-  "Authorization": "Bearer <access_token>"
+  "search"
+  "filter"
+  "sort"
+  "page[size]": "size",
+  "page[number]": "number"
 }
 ```
 
@@ -667,14 +659,6 @@ Description:
 
 Request:
 
-- headers:
-
-```json
-{
-  "Authorization": "Bearer <access_token>"
-}
-```
-
 - params:
 
 ```json
@@ -706,6 +690,34 @@ _Response (200 - OK)_
     "authorId": 3
   }
 ]
+```
+
+&nbsp;
+
+## 13. GET /pub/categories
+
+Description:
+
+- Get all category for public site from the database
+
+Request:
+
+_Response (200 - OK)_
+
+```json
+[
+  {
+    "name": "string"
+  }
+]
+```
+
+_Response (500 - Internal Server Error)_
+
+```json
+{
+  "message": "Internal server error"
+}
 ```
 
 &nbsp;
