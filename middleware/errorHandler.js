@@ -1,5 +1,5 @@
 module.exports = function errorHandler(err, req, res, next) {
-  console.log(err, "<== errhandler");
+  // console.log(err, "<== errhandler");
 
   if (err.name === "BadRequest") {
     res.status(400).json({ message: err.message });

@@ -8,11 +8,6 @@ cloudinary.config({
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET,
 });
-// cloudinary.config({
-//   cloud_name: "dmtfulhtw",
-//   api_key: "567286987943313",
-//   api_secret: "l_KVcBfRr-gifNXNaJRPtjpelA8",
-// });
 
 module.exports = class ProductController {
   static async updateProductCoverUrlById(req, res, next) {
@@ -25,7 +20,7 @@ module.exports = class ProductController {
     //   buffer: <Buffer ff d8 ff e0 00 10 4a 46 49 46 00 01 01 01 00 48 00 48 00 00 ff db 00 43 00 06 04 05 06 05 04 06 06 05 06 07 07 06 08 0a 10 0a 0a 09 09 0a 14 0e 0f 0c ... 30803 more bytes>,
     //   size: 30853
     // }
-    console.log(req.file, "<==== rf");
+    // console.log(req.file, "<==== rf");
     const mimetype = req.file.mimetype;
     const base64File = req.file.buffer.toString("base64");
     try {

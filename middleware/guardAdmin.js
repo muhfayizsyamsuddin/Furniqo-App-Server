@@ -1,5 +1,5 @@
 module.exports = function guardAdmin(req, res, next) {
-  console.log(req.user.role, "<=== guard admin");
+  // console.log(req.user.role, "<=== guard admin");
   if (req.user.role === "admin") {
     next();
   } else {

@@ -1,11 +1,11 @@
 const { Product } = require("../models/index");
 
 module.exports = async function guardAuthor(req, res, next) {
-  console.log(req.user.role, "<=== guard author");
+  // console.log(req.user.role, "<=== guard author");
 
   const productId = req.params.id;
   // console.log(productId, "===");
-  console.log(req.params.id, "~~~~!!!");
+  // console.log(req.params.id, "~~~~!!!");
   try {
     const product = await Product.findByPk(productId);
     if (!product) {
