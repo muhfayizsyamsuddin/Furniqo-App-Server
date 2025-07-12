@@ -49,10 +49,10 @@ module.exports = class PublicController {
       const { count, rows } = await Product.findAndCountAll(paramsQuerySQL);
       res.status(200).json({
         page: pageNumber,
-        data: rows,
-        totalData: count,
+        dataProduct: rows,
+        totalDataProduct: count,
         totalPage: Math.ceil(count / limit),
-        dataPerPage: limit,
+        dataProductPerPage: limit,
       });
     } catch (err) {
       // console.log("error:", err);
