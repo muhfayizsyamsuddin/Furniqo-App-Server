@@ -43,7 +43,7 @@ afterAll(async () => {
   });
 });
 
-describe("Login (Admin), perlu melakukan pengecekan pada status dan response ketika:", () => {
+describe("Login (Admin)", () => {
   test("Berhasil login dan mengirimkan access_token", async () => {
     const userLogin = {
       email: "abdul@gmail.com",

@@ -76,7 +76,7 @@ afterAll(async () => {
   });
 });
 
-describe("Create, perlu melakukan pengecekan pada status dan response", () => {
+describe("Create", () => {
   test("Berhasil membuat entitas utama", async () => {
     const productCreate = {
       name: "lamp",
@@ -178,7 +178,7 @@ describe("Create, perlu melakukan pengecekan pada status dan response", () => {
   });
 });
 
-describe("Update PUT, perlu melakukan pengecekan pada status dan response", () => {
+describe("Update PUT", () => {
   test("Berhasil mengupdate data entitas Utama berdasarkan params id yang diberikan", async () => {
     const productUpdate = {
       name: "Curtain",
@@ -326,7 +326,7 @@ describe("Update PUT, perlu melakukan pengecekan pada status dan response", () =
   });
 });
 
-describe("Delete, perlu melakukan pengecekan pada status dan response", () => {
+describe("Delete", () => {
   test("Berhasil menghapus data entitas Utama berdasarkan params id yang diberikan", async () => {
     // const productDelete = {
     //   name: "Curtain",

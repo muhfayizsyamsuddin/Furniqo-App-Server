@@ -75,7 +75,7 @@ afterAll(async () => {
   });
 });
 
-describe("Public site, perlu melakukan pengecekan pada status dan response", () => {
+describe("Endpoint list pada public site", () => {
   test("Berhasil mendapatkan entitas utama tanpa menggunakan query filter parameter", async () => {
     const response = await request(app).get("/pub/products");
 
@@ -83,7 +83,7 @@ describe("Public site, perlu melakukan pengecekan pada status dan response", () 
     expect(response.body).toHaveProperty("dataProduct");
     expect(Array.isArray(response.body.dataProduct)).toBe(true);
 
-    expect(response.body.dataProduct.length).toBeGreaterThan(0);
+    expect(response.body.dataProduct.length).toBeGreaterThan(0); //* > 0
     const product = response.body.dataProduct[0]; //* data 1
 
     expect(product).toHaveProperty("name", expect.any(String));
@@ -107,83 +107,35 @@ describe("Public site, perlu melakukan pengecekan pada status dan response", () 
     }
   });
 
-  //   test("Berhasil mendapatkan entitas utama serta panjang yang sesuai ketika memberikan page tertentu", async () => {
-  //     const productCreate = {
-  //       name: "lamp",
-  //       description: "minimalist",
-  //       price: 40000,
-  //       stock: 10,
-  //       imageUrl:
-  //         "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/888/1388807_PE964980_S5.webp",
-  //       categoryId: 1,
-  //       authorId: 1,
-  //     };
-  //     // .post -> method nya
-  //     // .send -> attach body
-  //     const response = await request(app)
-  //       .post("/products")
-  //       .send(productCreate)
-  //       .set("Authorization", `Bearer ${access_token_admin}+invalid`);
+  test("Berhasil mendapatkan entitas utama serta panjang yang sesuai ketika memberikan page tertentu", async () => {
+    const response = await request(app).get(
+      "/pub/products?page[size]=2&page[number]=2"
+    );
 
-  //     // berekspektasi
-  //     expect(response.status).toBe(401);
+    expect(response.status).toBe(200);
 
-  //     expect(response.body).toHaveProperty("message", "Invalid token");
-  //   });
+    expect(response.body.dataProduct.length).toBeLessThanOrEqual(2);
+    expect(response.body).toHaveProperty("page", 2);
+    expect(response.body).toHaveProperty("dataProductPerPage", 2);
+  });
 });
 
-// describe("Endpoint detail pada public site, perlu melakukan pengecekan pada status dan response", () => {
-//   test("Berhasil mendapatkan 1 entitas utama sesuai dengan params id yang diberikan", async () => {
-//     const productCreate = {
-//       name: "lamp",
-//       description: "minimalist",
-//       price: 40000,
-//       stock: 10,
-//       imageUrl:
-//         "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/888/1388807_PE964980_S5.webp",
-//       categoryId: 1,
-//       authorId: 1,
-//     };
-//     const response = await request(app)
-//       .post("/products")
-//       .send(productCreate)
-//       .set("Authorization", `Bearer ${access_token_admin}`);
+describe("Endpoint detail pada public site", () => {
+  test("Berhasil mendapatkan 1 entitas utama sesuai dengan params id yang diberikan", async () => {
+    const productId = 10;
+    const response = await request(app).get(`/pub/products/${productId}`);
 
-//     expect(response.status).toBe(201);
-//     expect(response.body).toHaveProperty("id", expect.any(Number));
-//     expect(response.body).toHaveProperty("name", productCreate.name);
-//     expect(response.body).toHaveProperty(
-//       "description",
-//       productCreate.description
-//     );
-//     expect(response.body).toHaveProperty("price", productCreate.price);
-//     expect(response.body).toHaveProperty("stock", productCreate.stock);
-//     expect(response.body).toHaveProperty("imageUrl", productCreate.imageUrl);
-//     expect(response.body).toHaveProperty(
-//       "categoryId",
-//       productCreate.categoryId
-//     );
-//     expect(response.body).toHaveProperty("authorId", productCreate.authorId);
-//   });
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("id", expect.any(Number));
+  });
 
-//   test("Gagal mendapatkan entitas utama karena params id yang diberikan tidak ada di data base/invalid", async () => {
-//     const productCreate = {
-//       name: "lamp",
-//       description: "minimalist",
-//       price: 40000,
-//       stock: 10,
-//       imageUrl:
-//         "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/888/1388807_PE964980_S5.webp",
-//       categoryId: 1,
-//       authorId: 1,
-//     };
-//     // .post -> method nya
-//     // .send -> attach body
-//     const response = await request(app).post("/products").send(productCreate);
+  test("Gagal mendapatkan entitas utama karena params id yang diberikan tidak ada di data base/invalid", async () => {
+    const productId = 55;
+    const response = await request(app).get(`/pub/products/${productId}`);
 
-//     // berekspektasi
-//     expect(response.status).toBe(401);
+    // berekspektasi
+    expect(response.status).toBe(404);
 
-//     expect(response.body).toHaveProperty("message", "Invalid token");
-//   });
-// });
+    expect(response.body).toHaveProperty("message", "Product not found");
+  });
+});
