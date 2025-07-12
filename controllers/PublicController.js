@@ -38,13 +38,13 @@ module.exports = class PublicController {
       // if (page) {
       if (size) {
         limit = +size;
-        paramsQuerySQL.limit = limit;
       }
       if (number) {
         pageNumber = +number;
-        paramsQuerySQL.offset = limit * (pageNumber - 1);
       }
       // }
+      paramsQuerySQL.limit = limit;
+      paramsQuerySQL.offset = limit * (pageNumber - 1);
 
       const { count, rows } = await Product.findAndCountAll(paramsQuerySQL);
       res.status(200).json({
