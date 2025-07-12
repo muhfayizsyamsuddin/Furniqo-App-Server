@@ -10,8 +10,9 @@
 
 List of available endpoints:
 
-- `POST /add-user`
 - `POST /login`
+- `GET /pub/products`
+- `GET /pub/products/:id`
 
 Routes below need authentication:
 
@@ -23,19 +24,15 @@ Routes below need authentication:
 - `POST /categories`
 - `GET /categories`
 - `PUT /categories/:id`
-- `GET /pub/products`
-- `GET /pub/products/:id`
 - `PATCH /products/:id/cover-url`
 - `POST /add-user`
 
 Routes below need authorization:
 
-> The request user should be an admin
-
 - `PUT /products/:id`
 - `DELETE /products/:id`
 - `PATCH /products/:id/cover-url`
-- `PATCH /add-user`
+- `POST /add-user`
 
 &nbsp;
 
