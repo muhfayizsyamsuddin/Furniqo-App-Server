@@ -6,8 +6,6 @@ module.exports = class UserController {
   static async createUsers(req, res, next) {
     const { username, email, password, phoneNumber, address } = req.body;
     try {
-      // console.log(req.body);
-
       const user = await User.create(req.body);
       res.status(201).json({
         id: user.id,
