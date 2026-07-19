@@ -1,0 +1,63 @@
+services:
+
+  server:
+    # build: .
+    image: faizms14/furniqo-app-server:v1.0
+    env_file: .env
+    container_name: furniqo-app-server
+    # ports:
+    #   - 3000:3000
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://furniqo-app-user:furniqo-app-password666@furniqo-app-db:5432/furniqo-app-db
+    networks:
+      - proxy_net
+      - furniqo-app-net
+    labels:
+      traefik.enable: true
+      traefik.docker.network: proxy_net
+      traefik.http.routers.furniqo-app-api.rule: Host(`api-furniqo.faizms.com`)
+      traefik.http.routers.furniqo-app-api.entrypoints: websecure
+      traefik.http.routers.furniqo-app-api.tls.certresolver: myresolver
+      traefik.http.services.furniqo-app-api.loadbalancer.server.port: 3000
+  
+  database:
+    image: postgres:16-alpine
+    env_file: .env
+    container_name: furniqo-app-db
+    # ports:
+    #   - 5432:5432
+    environment:
+      - POSTGRES_USER=furniqo-app-user
+      - POSTGRES_PASSWORD=furniqo-app-password666
+      - POSTGRES_DB=furniqo-app-db
+    volumes:
+      - furniqo-app-db-volume:/var/lib/postgresql/data
+    networks:
+      - furniqo-app-net
+
+  adminer:
+    image: adminer:latest
+    env_file: .env
+    container_name: furniqo-app-adminer
+    # ports:
+    #   - 8000:8080
+    networks:
+      - proxy_net
+      - furniqo-app-net
+    labels:
+      traefik.enable: true
+      traefik.docker.network: proxy_net
+      traefik.http.routers.furniqo-app-db.rule: Host(`db-furniqo.faizms.com`)
+      traefik.http.routers.furniqo-app-db.entrypoints: websecure
+      traefik.http.routers.furniqo-app-db.tls.certresolver: myresolver
+      traefik.http.services.furniqo-app-db.loadbalancer.server.port: 8080
+
+networks:
+  furniqo-app-net:
+    driver: bridge
+  proxy_net:
+    external: true
+
+volumes:
+  furniqo-app-db-volume:
