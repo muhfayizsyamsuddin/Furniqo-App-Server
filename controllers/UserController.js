@@ -21,6 +21,7 @@ module.exports = class UserController {
   }
 
   static async login(req, res, next) {
+    console.log("BODY =", req.body);
     const { email, password } = req.body;
     try {
       if (!email) {
@@ -33,6 +34,7 @@ module.exports = class UserController {
       }
       const user = await User.findOne({ where: { email } });
       // console.log(user);
+      console.log("USER =", user);
       if (!user) {
         // res.status(401).json({ message: "Invalid email or password" });
         throw {

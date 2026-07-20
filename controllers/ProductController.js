@@ -1,4 +1,4 @@
-const { Product, User } = require("../models/index");
+const { Product, User, Category } = require("../models/index");
 // import { v2 as cloudinary } from "cloudinary";
 const { v2: cloudinary } = require("cloudinary");
 
@@ -58,7 +58,19 @@ module.exports = class ProductController {
         categoryId: req.body.categoryId,
         authorId: req.user.id,
       });
-      res.status(201).json(createdProduct);
+    //   const newProduct = await Product.findByPk(createdProduct.id, {
+    //   include: [
+    //     {
+    //       model: User,
+    //       attributes: ["id", "username", "email", "role"],
+    //     },
+    //     {
+    //       model: Category,
+    //     },
+    //   ],
+    // });
+    //   res.status(201).json(newProduct);
+      return res.status(201).json(createdProduct);
     } catch (err) {
       // console.log("error:", err);
       next(err);
@@ -73,17 +85,22 @@ module.exports = class ProductController {
   static async getProducts(req, res, next) {
     try {
       const products = await Product.findAll({
-        include: {
-          model: User,
-          attributes: [
-            "id",
-            "username",
-            "email",
-            "role",
-            "phoneNumber",
-            "address",
-          ],
-        },
+        include: [
+          {
+            model: User,
+            attributes: [
+              "id",
+              "username",
+              "email",
+              "role",
+              "phoneNumber",
+              "address",
+            ],
+          },
+          {
+            model: Category, 
+          },
+        ],
       });
       res.status(200).json(products);
     } catch (err) {

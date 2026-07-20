@@ -16,8 +16,14 @@ if (process.env.NODE_ENV !== "production") {
 // console.log(process.env);
 
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const port = 3000;
+
+app.use(cors({
+  origin: "https://furniqo.faizms.com", // Izinkan domain frontend kamu
+  credentials: true
+}));
 
 const UserController = require("./controllers/UserController");
 const ProductController = require("./controllers/ProductController");

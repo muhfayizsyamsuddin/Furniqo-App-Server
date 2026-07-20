@@ -10,6 +10,9 @@ module.exports = {
       return product;
     });
     await queryInterface.bulkInsert("Products", products);
+    await queryInterface.sequelize.query(
+      `SELECT setval(pg_get_serial_sequence('"Products"', 'id'), coalesce(max(id), 1)) FROM "Products";`
+    );
   },
 
   async down(queryInterface, Sequelize) {
