@@ -1,3 +1,5 @@
+name: furniqo-server
+
 services:
 
   server:
