@@ -34,7 +34,7 @@ services:
       - POSTGRES_PASSWORD=furniqo-app-password666
       - POSTGRES_DB=furniqo-app-db
     volumes:
-      - furniqo-app-db-volume:/var/lib/postgresql/data
+      - server_furniqo-app-db-volume:/var/lib/postgresql/data
     networks:
       - furniqo-app-net
 
@@ -62,4 +62,5 @@ networks:
     external: true
 
 volumes:
-  furniqo-app-db-volume:
+  server_furniqo-app-db-volume:
+    external: true
